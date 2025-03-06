@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 public class TaxHelper {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -8,7 +7,7 @@ public class TaxHelper {
         int spendings = 0; // Расходы
 
         while (true) {
-            System.out.println("\nВыберите операцию и введите её номер:");
+            System.out.println("Выберите операцию и введите её номер:");
             System.out.println("1. Добавить новый доход");
             System.out.println("2. Добавить новый расход");
             System.out.println("3. Выбрать систему налогообложения");
@@ -19,28 +18,47 @@ public class TaxHelper {
                 break;
             }
 
-            try {
-                int operation = Integer.parseInt(input);
-                switch (operation) {
-                    case 1:
-                        System.out.println("Введите сумму дохода:");
-                        earnings += Integer.parseInt(scanner.nextLine());
-                        break;
-                    case 2:
-                        System.out.println("Введите сумму расхода:");
-                        spendings += Integer.parseInt(scanner.nextLine());
-                        break;
-                    case 3:
-                        chooseBestTaxSystem(earnings, spendings);
-                        break;
-                    default:
-                        System.out.println("Такой операции нет. Введите 1, 2 или 3.");
-                }
-            } catch (NumberFormatException e) {
+            int operation = parseInt(input);
+            if (operation == -1) {
                 System.out.println("Ошибка ввода! Введите число или 'end' для выхода.");
+                continue;
+            }
+
+            switch (operation) {
+                case 1:
+                    System.out.println("Введите сумму дохода:");
+                    int income = parseInt(scanner.nextLine());
+                    if (income != -1) {
+                        earnings += income;
+                    } else {
+                        System.out.println("Ошибка ввода! Введите корректную сумму дохода.");
+                    }
+                    break;
+                case 2:
+                    System.out.println("Введите сумму расхода:");
+                    int expense = parseInt(scanner.nextLine());
+                    if (expense != -1) {
+                        spendings += expense;
+                    } else {
+                        System.out.println("Ошибка ввода! Введите корректную сумму расхода.");
+                    }
+                    break;
+                case 3:
+                    chooseBestTaxSystem(earnings, spendings);
+                    break;
+                default:
+                    System.out.println("Такой операции нет. Введите 1, 2 или 3.");
             }
         }
         System.out.println("Программа завершена!");
+    }
+
+    // Метод для безопасного преобразования строки в число
+    public static int parseInt(String input) {
+        if (input.matches("\\d+")) {
+            return Integer.parseInt(input);
+        }
+        return -1;
     }
 
     // Метод для расчета налога по УСН "Доходы"
