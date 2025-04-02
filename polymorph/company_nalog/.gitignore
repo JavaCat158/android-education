@@ -2,9 +2,10 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.idea/
+company_nalog.iml
 
 ### Eclipse ###
-.idea
 .apt_generated
 .classpath
 .factorypath
@@ -22,7 +23,6 @@ bin/
 /dist/
 /nbdist/
 /.nb-gradle/
-company_nalog.iml
 
 ### VS Code ###
 .vscode/
